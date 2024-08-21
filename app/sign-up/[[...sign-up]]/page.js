@@ -1,3 +1,5 @@
+'use client'
+
 import { SignUp } from '@clerk/clerk-react'
 import {AppBar, Box, Button, Container, Link, Toolbar, Typography} from '@mui/material'
 
@@ -5,7 +7,7 @@ export default function SignUpPage()
 {
     return (
         
-    <Container maxWidth='sm'>
+    <Container maxWidth='100vw'>
 
         <AppBar position='static' sx={{backgroundColor: '#3f51b5'}}>
             <Toolbar>

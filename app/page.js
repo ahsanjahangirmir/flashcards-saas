@@ -1,13 +1,41 @@
-import Image from "next/image";
+'use client'
+
 import getStripe from "@/utils/get-stripe";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { AppBar, Box, Button, Container, Grid, Toolbar, Typography } from "@mui/material";
 import Head from "next/head";
 
 export default function Home() {
+
+  const handleSubmit = async () => {
+
+    const checkoutSession = await fetch('/api/checkout_sessions', {
+      method: "POST", 
+      headers: { origin: 'https://localhost:3000'},
+    })
+
+    const checkoutSessionJSON = await checkoutSession.json()
+
+    if (checkoutSessionJSON.statusCode === 500)
+    {
+      console.error(checkoutSession.message)
+      return
+    }
+
+    const stripe = await getStripe()
+    const {error} = await stripe.redirectToCheckout({sessionId: checkoutSessionJSON.id})
+
+    if (error)
+    {
+      console.warn(error.message)
+    }
+
+
+  }
+
   return (
 
-    <Container maxWidth='lg'>
+    <Container maxWidth='100vw'>
       
       <Head>
         <title>Flashkards.AI</title>
@@ -18,11 +46,11 @@ export default function Home() {
         
         <Toolbar>
           
-          <Typography variant='h6' gutterBottom>FlashKards.AI</Typography>
+          <Typography variant='h6' style={{flexGrow: 1}} gutterBottom>FlashKards.AI</Typography>
 
           <SignedOut>
-            <Button color="inherit"> Log In </Button>
-            <Button color="inherit"> Sign Up </Button>
+            <Button color="inherit" href="/sign-in"> Log In </Button>
+            <Button color="inherit" href="/sign-up"> Sign Up </Button>
           </SignedOut>
 
           <SignedIn>
@@ -101,7 +129,7 @@ export default function Home() {
                 {'  '}
                 Access to pro flashcard features and priority support.
               </Typography>  
-              <Button variant="contained" color="primary" sx={{mt:2}}>Choose Basic</Button>
+              <Button variant="contained" color="primary" sx={{mt:2}} onClick={handleSubmit}>Choose Pro</Button>
             </Box>
           </Grid>
 
