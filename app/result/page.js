@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import getStripe from "@/utils/get-stripe"
 import { useRouter } from "next/navigation"
 import { useSearchParams } from "next/navigation"
-import { fetch } from "openai/_shims"
 import { Box, CircularProgress, Container, Typography } from "@mui/material"
 
 const ResultPage = () => {

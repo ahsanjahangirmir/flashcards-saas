@@ -13,10 +13,10 @@ export default function SignUpPage()
             <Toolbar>
                 <Typography variant='h6' sx={{flexGrow:1}}>FlashKards.AI</Typography>
                 <Button color='inherit'>
-                    <Link href='/sign-in' passHref> Login </Link>
+                    <Link href='/sign-in' passhref> Login </Link>
                 </Button>
                 <Button color='inherit'>
-                    <Link href='/sign-up' passHref> Sign Up  </Link>
+                    <Link href='/sign-up' passhref> Sign Up  </Link>
                 </Button>
             </Toolbar>
         </AppBar>
